@@ -10,6 +10,9 @@ WORKDIR /usr/local/app
 COPY . .
 
 # Install all the dependencies
+
+RUN npm install -g npm@9.5.1
+
 RUN npm install
 
 # Generate the build of the application

@@ -3,9 +3,9 @@ package com.slesha.planms.service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.web.client.RestTemplate
 import javax.annotation.PostConstruct;
-
+import org.springframework.kafka.core.KafkaTemplate;
 import com.google.gson.Gson;
 import com.slesha.planms.dto.EnrollRequest;
 import com.slesha.planms.entity.InsurancePlan;
@@ -51,6 +51,7 @@ public class InsurancePlanService {
     }
 
     public Optional<User> getUser(String emailId){
+        template.send("user-plans", emailId);
         ResponseEntity<User> response=template.getForEntity("http://userms:8080/userms/"+emailId, User.class);
         if(response.getStatusCode()==HttpStatus.ACCEPTED){
             return Optional.of(response.getBody());
